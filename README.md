@@ -1,7 +1,10 @@
 # ChatGPT Hooks Extension
 
 Long chats getting messy?
+
 Scrolling endlessly to find one important question or response ?
+
+![](gif.gif)
 
 This extension solves that by giving you:
 > **“Bookmarks for your ChatGPT conversations”**
@@ -81,6 +84,7 @@ chatgpt-hooks/
 
 ## Author Note
 
-Built out of pure frustration with endless scrolling 😄
+Built out of pure frustration with endless scrolling 🥲
 
 If you’ve ever lost a great answer in a long chat, this is for you.
+
