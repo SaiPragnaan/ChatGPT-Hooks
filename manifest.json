@@ -1,0 +1,30 @@
+{
+    "manifest_version": 3,
+    "name": "ChatGPT Hooks",
+    "version": 1.0,
+    "description": "Bookmark messages in ChatGPT",
+    "permissions": [
+        "storage"
+    ],
+    "content_scripts": [
+        {
+            "matches": [
+                "https://chat.openai.com/*",
+                "https://chatgpt.com/*"
+            ],
+            "js": [
+                "storage.js",
+                "ui.js",
+                "content.js"
+            ],
+            "css": [
+                "style.css"
+            ]
+        }
+    ],
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "chatgpt-hooks@example.com"
+        }
+    }
+}
