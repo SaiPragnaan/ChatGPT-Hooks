@@ -1,0 +1,30 @@
+#hook-sidebar {
+  position: fixed;
+  right: 0;
+  top: 60px;
+  width: 220px;
+  height: 80%;
+  background: #1e1e1e;
+  color: white;
+  padding: 10px;
+  z-index: 9999;
+  border-left: 1px solid #444;
+}
+
+.hook-item {
+  padding: 6px;
+  margin: 4px 0;
+  background: #333;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.hook-item:hover {
+  background: #555;
+}
+
+.hook-btn {
+  margin-left: 10px;
+  cursor: pointer;
+  font-size: 12px;
+}

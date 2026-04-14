@@ -53,3 +53,22 @@ function init() {
 }
 
 setInterval(init, 2000);
+
+let lastUrl = location.href;
+
+function detectPageChange() {
+  const currentUrl = location.href;
+
+  if (currentUrl !== lastUrl) {
+    lastUrl = currentUrl;
+
+    console.log("Chat changed");
+
+    setTimeout(() => {
+      refreshHooksUI();
+      injectButtons();
+    }, 1000);
+  }
+}
+
+setInterval(detectPageChange, 1000);
