@@ -1,55 +1,70 @@
 console.log("Hook extension running");
 
 function getMessages() {
-  return document.querySelectorAll('[data-message-author-role]');
+    return document.querySelectorAll("[data-message-author-role]");
 }
 
 function injectButtons() {
-  const messages = getMessages();
+    const messages = getMessages();
 
-  messages.forEach((msg, index) => {
-    if (msg.querySelector(".hook-btn")) return;
+    messages.forEach((msg, index) => {
+        if (msg.querySelector(".hook-btn")) return;
 
-    const btn = document.createElement("button");
-    btn.innerText = "📌";
-    btn.className = "hook-btn";
+        const btn = document.createElement("button");
+        btn.innerText = "📌";
+        btn.className = "hook-btn";
 
-    btn.onclick = async () => {
-      const label = prompt("Hook name:");
-      if (!label) return;                      //// Emptied one also try
+        btn.onclick = () => {
+            if (msg.querySelector(".hook-input")) return;
 
-      const hook = {
-        id: Date.now(),
-        label,
-        text: msg.innerText.slice(0, 100),
-        index
-      };
+            const input = document.createElement("input");
+            input.className = "hook-input";
+            input.placeholder = "Hook name...";
 
-      await addHook(hook);
-      refreshHooksUI();
-    };
+            input.onkeydown = async (e) => {
+                if (e.key === "Enter") {
+                    const label = input.value.trim();
+                    if (!label) return;
 
-    msg.appendChild(btn);
-  });
+                    const hook = {
+                        id: Date.now(),
+                        label,
+                        text: msg.innerText.slice(0, 100),
+                        index,
+                    };
+
+                    await addHook(hook);
+                    refreshHooksUI();
+
+                    input.remove();
+                }
+            };
+
+            msg.appendChild(input);
+            input.focus();
+        };
+
+        msg.appendChild(btn);
+    });
 }
 
 function scrollToHook(hook) {
-  const messages = getMessages();
-  const target = messages[hook.index];
+    const messages = getMessages();
+    const target = messages[hook.index];
 
-  if (target) {
-    target.scrollIntoView({
-      behavior: "smooth",
-      block: "center"
-    });
-  } else {
-    alert("Message not found. Scroll up first.");
-  }
+    if (target) {
+        target.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+        });
+    } else {
+        alert("Message not found. Scroll up first.");
+    }
 }
 
 function init() {
-  createSidebar();
-  injectButtons();
+    createSidebar();
+    injectButtons();
 }
 
 setInterval(init, 2000);
@@ -57,18 +72,18 @@ setInterval(init, 2000);
 let lastUrl = location.href;
 
 function detectPageChange() {
-  const currentUrl = location.href;
+    const currentUrl = location.href;
 
-  if (currentUrl !== lastUrl) {
-    lastUrl = currentUrl;
+    if (currentUrl !== lastUrl) {
+        lastUrl = currentUrl;
 
-    console.log("Chat changed");
+        console.log("Chat changed");
 
-    setTimeout(() => {
-      refreshHooksUI();
-      injectButtons();
-    }, 1000);
-  }
+        setTimeout(() => {
+            refreshHooksUI();
+            injectButtons();
+        }, 1000);
+    }
 }
 
 setInterval(detectPageChange, 1000);
